@@ -78,6 +78,8 @@ flutter:
     - assets/animations/loading.json
     - assets/animations/dancing.json
     - assets/animations/launching.json
+    - assets/login/login.png
+    - assets/login/register.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

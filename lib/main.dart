@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notification_flutter_app/presentation/screens/login/login_page.dart';
+import 'package:notification_flutter_app/presentation/screens/login/register_page.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
@@ -28,6 +30,8 @@ class _HomePage extends StatelessWidget {
       ],
       child: const MaterialApp(
         home: HomePage(),
+        //CreateAccountPage(),
+         //LoginPage(),
         debugShowCheckedModeBanner: false,
       ),
     );
