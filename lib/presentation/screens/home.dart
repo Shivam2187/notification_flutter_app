@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/data/models/task.dart';
+import 'package:notification_flutter_app/presentation/providers/global_store.dart';
 import 'package:notification_flutter_app/presentation/widgets/admin_acess_dialog.dart';
 import 'package:notification_flutter_app/presentation/widgets/task_details_dialog.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
@@ -48,17 +50,22 @@ class _HomePageState extends State<HomePage> {
             }
 
             final tasks = snapshot.data ?? [];
+            final userMobileNumber =
+                locator.get<GlobalStroe>().userMobileNumber;
+            final filteredtask = tasks
+                .where((task) => task.mobileNumber == userMobileNumber)
+                .toList();
 
-            if (tasks.isEmpty) {
+            if (filteredtask.isEmpty) {
               return const Center(child: Text('No notifications yet.'));
             }
 
             return AnimationLimiter(
               child: ListView.builder(
-                itemCount: tasks.length,
+                itemCount: filteredtask.length,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 itemBuilder: (ctx, index) {
-                  final currentTask = tasks[index];
+                  final currentTask = filteredtask[index];
 
                   return AnimationConfiguration.staggeredList(
                     position: index,
@@ -92,10 +99,10 @@ class _HomePageState extends State<HomePage> {
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (currentTask.emailId.isNotEmpty)
-                                  Text(currentTask.emailId),
-                                if (currentTask.description.isNotEmpty)
+                                if (currentTask.description.isNotEmpty) ...[
+                                  const SizedBox(height: 4),
                                   Text(currentTask.description),
+                                ],
                                 const SizedBox(height: 4),
                                 Text(
                                   currentTask.taskComplitionDate.toSlashDate(),
@@ -103,8 +110,6 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
-                            trailing: const Icon(Icons.notifications_active,
-                                color: Colors.orange),
                             onTap: () =>
                                 taskDetailsDialog(currentTask, index, context),
                           ),

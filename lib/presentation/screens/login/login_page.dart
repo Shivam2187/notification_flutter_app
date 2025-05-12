@@ -115,8 +115,8 @@ class _LoginPageState extends State<LoginPage> {
                       ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                             FocusManager.instance.primaryFocus?.unfocus();
-                          await  locator.get<HiveService>().saveMobileNumber(
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            await locator.get<HiveService>().saveMobileNumber(
                                 number: _emailController.text);
                           } else {
                             showTopSnackBar(

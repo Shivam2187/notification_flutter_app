@@ -10,6 +10,8 @@ class GlobalStroe {
     await fetchSecretValue();
   }
 
+  String? userMobileNumber;
+
   List<SecretKey> _secretKeyList = [];
 
   Future<void> fetchSecretValue() async {

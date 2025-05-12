@@ -28,7 +28,11 @@ class _HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userDetails = locator.get<HiveService>().getAllMobileNumbers();
+    locator.get<GlobalStroe>().userMobileNumber = locator
+        .get<HiveService>()
+        .getAllMobileNumbers()
+        .firstOrNull
+        ?.mobileNumber;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -36,7 +40,9 @@ class _HomePage extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        home: userDetails.isEmpty ? const LoginPage() : const HomePage(),
+        home: locator.get<GlobalStroe>().userMobileNumber?.isEmpty ?? false
+            ? const LoginPage()
+            : const HomePage(),
         debugShowCheckedModeBanner: false,
       ),
     );

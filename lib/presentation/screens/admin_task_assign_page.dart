@@ -68,7 +68,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
                 items: employeProvider.employees
                     .map((e) => DropdownMenuItem(
                           value: e,
-                          child: Text(e.employeeName),
+                          child: Text('${e.employeeName} - ${e.mobileNumber}'),
                         ))
                     .toList(),
                 onChanged: (value) {
@@ -152,6 +152,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
         emailId: selectedEmployee?.emailId ?? '',
         taskComplitionDate: pickedDate.toString(),
         locationLink: locationLinkController.text,
+        mobileNiumber: selectedEmployee?.mobileNumber ?? '',
       );
       LoaderDialog.hide(context);
 

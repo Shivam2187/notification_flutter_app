@@ -68,6 +68,7 @@ class EmployeProvider extends ChangeNotifier {
     required String taskComplitionDate,
     required String emailId,
     required String description,
+    required String mobileNiumber,
     String? locationLink,
   }) async {
     try {
@@ -76,6 +77,7 @@ class EmployeProvider extends ChangeNotifier {
             taskComplitionDate: taskComplitionDate,
             emailId: emailId,
             description: description,
+            mobileNumber: mobileNiumber,
             locationLink: locationLink,
           );
       if (status) {

@@ -10,6 +10,5 @@ class DependencyInjection {
     locator.registerSingleton(GlobalStroe());
     locator.registerSingleton(SanityService());
     locator.registerSingleton(HiveService());
-    
   }
 }
