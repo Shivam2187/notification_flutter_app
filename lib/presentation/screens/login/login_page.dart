@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:notification_flutter_app/core/hive_service.dart';
+import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 
 class MyApp extends StatelessWidget {
@@ -111,8 +113,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const Spacer(),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                             FocusManager.instance.primaryFocus?.unfocus();
+                          await  locator.get<HiveService>().saveMobileNumber(
+                                number: _emailController.text);
                           } else {
                             showTopSnackBar(
                               context: context,
