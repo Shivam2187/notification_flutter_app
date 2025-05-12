@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:notification_flutter_app/core/hive_service.dart';
+import 'package:notification_flutter_app/core/locator.dart';
+import 'package:notification_flutter_app/presentation/screens/login/login_page.dart';
 
 class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -19,7 +22,7 @@ class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(
-          bottom: Radius.circular(24)), // Rounded bottom
+          bottom: Radius.circular(16)), // Rounded bottom
       child: Container(
         height: preferredSize.height,
         decoration: const BoxDecoration(
@@ -47,9 +50,13 @@ class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             if (islogoutButtoonVisible)
               IconButton(
-                icon: const Icon(Icons.logout),
+                icon: const Icon(Icons.logout, color: Colors.black),
                 onPressed: () {
-                  // Profile or logout
+                  locator.get<HiveService>().clearAllMobileUsersData();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
                 },
               ),
           ],

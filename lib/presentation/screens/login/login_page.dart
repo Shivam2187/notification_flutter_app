@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/core/locator.dart';
+import 'package:notification_flutter_app/presentation/providers/global_store.dart';
+import 'package:notification_flutter_app/presentation/screens/home.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 
 class MyApp extends StatelessWidget {
@@ -118,6 +120,14 @@ class _LoginPageState extends State<LoginPage> {
                             FocusManager.instance.primaryFocus?.unfocus();
                             await locator.get<HiveService>().saveMobileNumber(
                                 number: _emailController.text);
+                            locator.get<GlobalStroe>().userMobileNumber =
+                                _emailController.text;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
                           } else {
                             showTopSnackBar(
                               context: context,

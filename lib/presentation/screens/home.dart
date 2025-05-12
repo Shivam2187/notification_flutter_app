@@ -30,7 +30,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const FancyAppBar(title: 'Employee Notifications'),
+      appBar: const FancyAppBar(
+        title: 'Employee Notifications',
+        islogoutButtoonVisible: true,
+      ),
       body: FutureBuilder<List<Task>>(
           future: _tasksFuture,
           builder: (context, snapshot) {

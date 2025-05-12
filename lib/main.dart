@@ -40,7 +40,7 @@ class _HomePage extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        home: locator.get<GlobalStroe>().userMobileNumber?.isEmpty ?? false
+        home: locator.get<GlobalStroe>().userMobileNumber?.isEmpty ?? true
             ? const LoginPage()
             : const HomePage(),
         debugShowCheckedModeBanner: false,

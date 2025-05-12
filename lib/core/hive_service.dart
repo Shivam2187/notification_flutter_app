@@ -12,4 +12,9 @@ class HiveService {
     final box = Hive.box<UserLoginInfo>('mobile_users');
     return box.values.toList();
   }
+
+  Future<void> clearAllMobileUsersData() async {
+    final box = Hive.box<UserLoginInfo>('mobile_users');
+    await box.clear();
+  }
 }
