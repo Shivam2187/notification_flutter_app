@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/core/locator.dart';
@@ -64,16 +65,11 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: screenHeight * 0.2),
-                const Text(
-                  'Welcome\nBack',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                Lottie.asset(
+                  'assets/animations/welcome.json',
+                  repeat: true,
                 ),
-                SizedBox(height: screenHeight * 0.12),
+                const SizedBox(height: 32),
                 Form(
                   key: _formKey,
                   child: TextFormField(
@@ -92,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return null;
+                        return 'Enter a valid Mobile Number';
                       }
                       if (!RegExp(r'^\d{10}$').hasMatch(value)) {
                         return 'Enter valid 10-digit number';
@@ -151,12 +147,10 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Container(
-                  child: Lottie.asset(
-                    'assets/animations/dancing.json',
-                    repeat: true,
-                  ),
-                )
+                Lottie.asset(
+                  'assets/animations/dancing.json',
+                  repeat: true,
+                ),
               ],
             ),
           ),

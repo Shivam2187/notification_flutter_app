@@ -16,7 +16,7 @@ void showAdminAcessDialog(BuildContext context) async {
     FocusManager.instance.primaryFocus?.unfocus();
 
     if (adminEmail.isNotEmpty && emailController.text.trim() == adminEmail) {
-      LoaderDialog.show(context: context, path: 'launching.json');
+      LoaderDialog.show(context: context);
       await Provider.of<EmployeProvider>(context, listen: false)
           .fetchEmployee();
       LoaderDialog.hide(context);

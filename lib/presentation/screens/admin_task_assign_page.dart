@@ -145,7 +145,9 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
         descriptionController.text.isNotEmpty &&
         locationLinkController.text.isNotEmpty) {
       FocusManager.instance.primaryFocus?.unfocus();
-      LoaderDialog.show(context: context);
+      LoaderDialog.show(
+        context: context,
+      );
       final status = await employeProvider.addTask(
         employeeName: selectedEmployee?.employeeName ?? '',
         description: descriptionController.text,

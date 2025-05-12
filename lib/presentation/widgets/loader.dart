@@ -18,7 +18,7 @@ class LoaderDialog {
                   horizontal: 80,
                 ),
                 child: Lottie.asset(
-                  'assets/animations/${path ?? 'loading.json'}',
+                  'assets/animations/${path ?? 'launching.json'}',
                   width: double.infinity,
                   height: double.infinity,
                   repeat: true,

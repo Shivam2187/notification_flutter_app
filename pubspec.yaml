@@ -78,6 +78,7 @@ flutter:
     - assets/animations/loading.json
     - assets/animations/dancing.json
     - assets/animations/launching.json
+    - assets/animations/welcome.json
     - assets/login/login.png
     - assets/login/register.png
 
