@@ -1,4 +1,4 @@
-# rathi_app
+# notification_flutter_app
 
 A new Flutter project.
 

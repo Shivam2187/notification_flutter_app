@@ -1,4 +1,4 @@
-package com.example.rathi_app
+package com.example.notification_flutter_app
 
 import io.flutter.embedding.android.FlutterActivity
 
