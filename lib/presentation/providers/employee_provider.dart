@@ -54,7 +54,7 @@ class EmployeProvider extends ChangeNotifier {
   Future<List<Task>> fetchAllTask() async {
     try {
       _taskList = await locator.get<SanityService>().fetchAllTask();
-
+      notifyListeners();
       return _taskList;
     } catch (e) {
       print('Error fetching employees: $e');
