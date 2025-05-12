@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                 number: _emailController.text);
                             locator.get<GlobalStroe>().userMobileNumber =
                                 _emailController.text;
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const HomePage(),
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                           } else {
                             showTopSnackBar(
                               context: context,
-                              message: 'Enter Valid Mobile Number',
+                              message: 'Please Enter Valid Mobile Number!',
                               bgColor: Colors.grey.shade900,
                             );
                           }

@@ -47,18 +47,18 @@ void taskDetailsDialog(Task task, int index, BuildContext context) {
                         } else {
                           showTopSnackBar(
                             context: context,
-                            message: 'Location link not valid!',
+                            message: 'Location link is Not Valid!',
                           );
                         }
                       } else {
                         showTopSnackBar(
                           context: context,
-                          message: 'No location link available',
+                          message: 'No location link Available',
                         );
                       }
                     },
                     child: Text(
-                      task.locationLink ?? 'No location provided',
+                      task.locationLink ?? 'No Location Provided',
                       style: const TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.w500,
