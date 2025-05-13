@@ -1,3 +1,4 @@
+import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/core/locator.dart';
@@ -39,25 +40,38 @@ class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
             title,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          centerTitle: true,
+          //centerTitle: true,
           actions: [
             if (isNoticationButtoonVisible)
-              IconButton(
-                icon: const Icon(Icons.notifications),
-                onPressed: () {
-                  // Action here
-                },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: AnimateIcon(
+                  color: Colors.white,
+                  key: UniqueKey(),
+                  onTap: () {},
+                  iconType: IconType.continueAnimation,
+                  width: 32,
+                  animateIcon: AnimateIcons.bell,
+                ),
               ),
             if (islogoutButtoonVisible)
-              IconButton(
-                icon: const Icon(Icons.logout, color: Colors.black),
-                onPressed: () {
-                  locator.get<HiveService>().clearAllMobileUsersData();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: AnimateIcon(
+                  color: Colors.white,
+                  key: UniqueKey(),
+                  onTap: () {
+                    locator.get<HiveService>().clearAllMobileUsersData();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    );
+                  },
+                  iconType: IconType.continueAnimation,
+                  width: 32,
+                  animateIcon: AnimateIcons.signOut,
+                ),
               ),
           ],
         ),

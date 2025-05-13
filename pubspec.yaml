@@ -53,6 +53,8 @@ dependencies:
   intl: ^0.20.2
   flutter_staggered_animations: ^1.1.1
   lottie: ^3.1.3
+  slider_button: ^2.1.0
+  animated_icon: ^0.0.9
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +81,7 @@ flutter:
     - assets/animations/dancing.json
     - assets/animations/launching.json
     - assets/animations/welcome.json
+    - assets/animations/loginButton.json
     - assets/login/login.png
     - assets/login/register.png
 

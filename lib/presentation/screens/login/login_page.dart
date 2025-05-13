@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
 import 'package:notification_flutter_app/presentation/screens/home.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
+import 'package:slider_button/slider_button.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -96,54 +96,47 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                const SizedBox(height: 16),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Row(
-                    children: [
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey.shade700),
+                const SizedBox(height: 20),
+                Center(
+                  child: SliderButton(
+                    buttonColor: Colors.grey.shade700,
+                    vibrationFlag: true,
+                    label: Text(
+                      "Slide to Sign In!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
                       ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            await locator.get<HiveService>().saveMobileNumber(
-                                number: _emailController.text);
-                            locator.get<GlobalStroe>().userMobileNumber =
-                                _emailController.text;
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ),
-                            );
-                          } else {
-                            showTopSnackBar(
-                              context: context,
-                              message: 'Please Enter Valid Mobile Number!',
-                              bgColor: Colors.grey.shade900,
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(20),
-                          backgroundColor: Colors.grey.shade700,
-                          elevation: 20,
-                          foregroundColor: Colors.white,
-                        ),
-                        child: const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
+                    ),
+                    icon: const Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
+                    action: () async {
+                      if (_formKey.currentState!.validate()) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        await locator
+                            .get<HiveService>()
+                            .saveMobileNumber(number: _emailController.text);
+                        locator.get<GlobalStroe>().userMobileNumber =
+                            _emailController.text;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
+                      } else {
+                        showTopSnackBar(
+                          context: context,
+                          message: 'Please Enter Valid Mobile Number!',
+                          bgColor: Colors.grey.shade900,
+                        );
+                      }
+                      return false;
+                    },
                   ),
                 ),
                 Lottie.asset(
