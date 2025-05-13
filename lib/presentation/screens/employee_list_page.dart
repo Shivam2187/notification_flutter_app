@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:notification_flutter_app/presentation/widgets/add_employee_bottomsheet.dart';
 import 'package:notification_flutter_app/presentation/widgets/employee_details_dialog.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
@@ -70,23 +71,30 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                 ),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              showModalBottomSheet<void>(
-                elevation: 10,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                ),
+              final formKey = GlobalKey<EmployeeAddFormState>();
+
+              showAddEmployeeBottomSheet(
                 context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(16)),
-                      color: Colors.white,
+                contentWidget: EmployeeAddForm(
+                  key: formKey,
+                ),
+                stickyWidget: ElevatedButton(
+                  onPressed: () async {
+                    await formKey.currentState?.handleSubmit();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 16,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    backgroundColor: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: const EmployeeAddForm(),
-                  );
-                },
+                  ),
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               );
             },
             label: const Text('Add Employee'),
@@ -96,44 +104,4 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
       },
     );
   }
-
-  // void _showTaskDetails(
-  //   Employee employeeDetails,
-  //   BuildContext context,
-  // ) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: Text(employeeDetails.employeeName),
-  //       content: Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         crossAxisAlignment: CrossAxisAlignment.start,
-  //         children: [
-  //           Text(employeeDetails.mobileNumber),
-  //           if (employeeDetails.description?.isNotEmpty ?? false) ...[
-  //             const SizedBox(height: 8),
-  //             Text(employeeDetails.description ?? ''),
-  //           ],
-  //           const SizedBox(height: 8),
-  //           Text(employeeDetails.emailId),
-  //           const SizedBox(height: 8),
-  //           GestureDetector(
-  //             onTap: () {},
-  //             child: const Text(
-  //               'View Location',
-  //               style: TextStyle(
-  //                   color: Colors.blue, decoration: TextDecoration.underline),
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Navigator.of(context).pop(),
-  //           child: const Text('Close'),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

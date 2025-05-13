@@ -115,21 +115,25 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
               ),
               const SizedBox(height: 24),
               Center(
-                  child: ElevatedButton(
-                onPressed: () => _submitTask(employeProvider),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 24,
+                  child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => _submitTask(employeProvider),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 16,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 24,
+                    ),
+                    backgroundColor: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
-                  backgroundColor: Colors.deepPurple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                  child: const Text(
+                    'Assign Task',
+                    style: TextStyle(color: Colors.white),
                   ),
-                ),
-                child: const Text(
-                  'Assign Task',
-                  style: TextStyle(color: Colors.white),
                 ),
               )),
             ],
