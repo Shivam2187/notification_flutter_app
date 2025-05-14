@@ -79,7 +79,6 @@ class _HomeDraggableScrollableSheetState
                           ),
                           child: AnimateIcon(
                             color: Colors.black,
-                            key: UniqueKey(),
                             onTap: () {},
                             height: 32,
                             iconType: IconType.continueAnimation,
@@ -104,18 +103,26 @@ class _HomeDraggableScrollableSheetState
 
                               return AnimationConfiguration.staggeredList(
                                 position: index,
-                                duration: const Duration(milliseconds: 400),
                                 child: SlideAnimation(
-                                  verticalOffset: 50.0,
+                                  horizontalOffset: 200,
+                                  duration: const Duration(milliseconds: 800),
                                   child: FadeInAnimation(
+                                    duration: const Duration(milliseconds: 800),
                                     child: Card(
                                       margin: const EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 6),
-                                      elevation: 3,
+                                          horizontal: 12, vertical: 8),
+                                      elevation: 6,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: ListTile(
+                                        trailing: AnimateIcon(
+                                          color: Colors.black,
+                                          onTap: () {},
+                                          height: 24,
+                                          iconType: IconType.continueAnimation,
+                                          animateIcon: AnimateIcons.eye,
+                                        ),
                                         contentPadding:
                                             const EdgeInsets.all(12),
                                         leading: CircleAvatar(

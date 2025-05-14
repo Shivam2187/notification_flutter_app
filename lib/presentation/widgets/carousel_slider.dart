@@ -35,7 +35,7 @@ class _AutoCarouselSliderState extends State<AutoCarouselSlider> {
             autoPlay: true,
             enlargeCenterPage: true,
             viewportFraction: 0.9,
-            aspectRatio: 16 / 9,
+            aspectRatio: 2,
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
