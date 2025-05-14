@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
-import 'package:notification_flutter_app/presentation/screens/home.dart';
+import 'package:notification_flutter_app/presentation/screens/home_page.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 import 'package:slider_button/slider_button.dart';
 
@@ -117,11 +117,14 @@ class _LoginPageState extends State<LoginPage> {
                     action: () async {
                       if (_formKey.currentState!.validate()) {
                         FocusManager.instance.primaryFocus?.unfocus();
+                        //save mobile number to hive
                         await locator
                             .get<HiveService>()
                             .saveMobileNumber(number: _emailController.text);
+                        //save mobile number to global store
                         locator.get<GlobalStroe>().userMobileNumber =
                             _emailController.text;
+                            // navigate to home page
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

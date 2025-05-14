@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/data/models/user_login_info.dart';
-import 'package:notification_flutter_app/presentation/screens/home.dart';
+import 'package:notification_flutter_app/presentation/screens/home_page.dart';
 import 'package:notification_flutter_app/presentation/screens/login/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/core/locator.dart';
