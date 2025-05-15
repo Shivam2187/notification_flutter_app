@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.grey[300], // Light grey background

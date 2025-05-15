@@ -67,7 +67,9 @@ class _HomeDraggableScrollableSheetState
                   }
 
                   return Scaffold(
+                    backgroundColor: Colors.transparent,
                     body: ListView(
+                      
                       padding: const EdgeInsets.all(8),
                       controller: widget.scrollController,
                       children: [
