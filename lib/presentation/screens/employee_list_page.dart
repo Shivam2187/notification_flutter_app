@@ -98,7 +98,11 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
               );
             },
             label: const Text('Add Employee'),
-            icon: const Icon(Icons.add, size: 25),
+            icon: Lottie.asset(
+              'assets/animations/add_employee.json',
+              repeat: true,
+              width: 32,
+            ),
           ),
         );
       },

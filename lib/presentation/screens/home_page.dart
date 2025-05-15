@@ -2,7 +2,11 @@ import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lottie/lottie.dart';
+import 'package:notification_flutter_app/core/hive_service.dart';
+import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/screens/home_draggable_scrollable_sheet.dart';
+import 'package:notification_flutter_app/presentation/screens/login/login_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,38 +36,58 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300], // Light grey background
-                          shape: BoxShape.circle, // Makes it round
-                        ),
-                        padding: const EdgeInsets.all(
-                            8), // Padding inside the circle
-                        child: AnimateIcon(
-                          color: Colors.black,
+                    alignment: Alignment.topRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
                           onTap: () {
-                            setState(() {
-                              showBottomSheet = true;
-                            });
+                            locator
+                                .get<HiveService>()
+                                .clearAllMobileUsersData();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()),
+                            );
                           },
-                          iconType: IconType.continueAnimation,
-                          width: 20,
-                          animateIcon: AnimateIcons.cross,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300], // Light grey background
+                              shape: BoxShape.circle, // Makes it round
+                            ),
+                            padding: const EdgeInsets.all(
+                                8), // Padding inside the circle
+                            child: Lottie.asset(
+                              'assets/animations/logout.json',
+                              repeat: true,
+                              width: 28,
+                            ),
+                          ),
                         ),
-                      )
-                      // IconButton(
-                      //   highlightColor: Colors.white10,
-                      //   color: Colors.white,
-                      //   isSelected: true,
-                      //   icon: const Icon(Icons.close),
-                      //   onPressed: () {
-                      //     setState(() {
-                      //       showBottomSheet = true;
-                      //     });
-                      //   },
-                      // ),
-                      ),
+                        SizedBox(width: 8),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300], // Light grey background
+                            shape: BoxShape.circle, // Makes it round
+                          ),
+                          padding: const EdgeInsets.all(
+                              8), // Padding inside the circle
+                          child: AnimateIcon(
+                            color: Colors.black,
+                            onTap: () {
+                              setState(() {
+                                showBottomSheet = true;
+                              });
+                            },
+                            iconType: IconType.continueAnimation,
+                            width: 24,
+                            animateIcon: AnimateIcons.cross,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   const Expanded(
                     child: Center(
                       child: Text('ndd'),
@@ -103,10 +127,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    child: Expanded(
-                      child: HomeDraggableScrollableSheet(
-                        scrollController: controller,
-                      ),
+                    child: HomeDraggableScrollableSheet(
+                      scrollController: controller,
                     ),
                   );
                 },

@@ -56,6 +56,7 @@ dependencies:
   slider_button: ^2.1.0
   animated_icon: ^0.0.9
   carousel_slider_plus: ^7.1.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -78,11 +79,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/animations/loading.json
-    - assets/animations/dancing.json
-    - assets/animations/launching.json
-    - assets/animations/welcome.json
-    - assets/animations/loginButton.json
+    - assets/animations/
+    
     - assets/login/login.png
     - assets/login/register.png
 

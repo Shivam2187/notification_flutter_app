@@ -1,11 +1,10 @@
-import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
 import 'package:notification_flutter_app/presentation/widgets/admin_acess_dialog.dart';
 import 'package:notification_flutter_app/presentation/widgets/carousel_slider.dart';
-import 'package:notification_flutter_app/presentation/widgets/task_details_dialog.dart';
+import 'package:notification_flutter_app/presentation/widgets/hero_widget.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
@@ -77,12 +76,14 @@ class _HomeDraggableScrollableSheetState
                             color: Colors.grey[300], // Light grey background
                             shape: BoxShape.circle, // Makes it round
                           ),
-                          child: AnimateIcon(
-                            color: Colors.black,
-                            onTap: () {},
+                          padding: const EdgeInsets.all(
+                            4,
+                          ), // Padding inside the circle
+                          child: Lottie.asset(
+                            'assets/animations/down_arrow.json',
                             height: 32,
-                            iconType: IconType.continueAnimation,
-                            animateIcon: AnimateIcons.downArrow,
+                            width: 32,
+                            repeat: true,
                           ),
                         ),
                         const SizedBox(
@@ -115,54 +116,65 @@ class _HomeDraggableScrollableSheetState
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: ListTile(
-                                        trailing: AnimateIcon(
-                                          color: Colors.black,
-                                          onTap: () {},
-                                          height: 24,
-                                          iconType: IconType.continueAnimation,
-                                          animateIcon: AnimateIcons.eye,
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.all(12),
-                                        leading: CircleAvatar(
-                                          backgroundColor: Colors.blueAccent,
-                                          child: Text(
-                                            currentTask.employeeName
-                                                .getInitials(),
-                                            style: const TextStyle(
-                                                color: Colors.white),
+                                      child: Hero(
+                                        tag: 'hero-image',
+                                        child: ListTile(
+                                          trailing: Lottie.asset(
+                                            'assets/animations/eye.json',
+                                            height: 48,
+                                            width: 48,
+                                            repeat: true,
                                           ),
-                                        ),
-                                        title: Text(
-                                          currentTask.employeeName,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        subtitle: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            if (currentTask
-                                                .description.isNotEmpty) ...[
-                                              const SizedBox(height: 4),
-                                              Text(currentTask.description),
-                                            ],
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              currentTask.taskComplitionDate
-                                                  .toSlashDate(),
+                                          contentPadding:
+                                              const EdgeInsets.all(12),
+                                          leading: CircleAvatar(
+                                            backgroundColor: Colors.blueAccent,
+                                            child: Text(
+                                              currentTask.employeeName
+                                                  .getInitials(),
                                               style: const TextStyle(
-                                                  color: Colors.grey),
+                                                  color: Colors.white),
                                             ),
-                                          ],
-                                        ),
-                                        onTap: () => taskDetailsDialog(
-                                          currentTask,
-                                          index,
-                                          context,
+                                          ),
+                                          title: Text(
+                                            currentTask.employeeName,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          subtitle: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if (currentTask
+                                                  .description.isNotEmpty) ...[
+                                                const SizedBox(height: 4),
+                                                Text(currentTask.description),
+                                              ],
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                currentTask.taskComplitionDate
+                                                    .toSlashDate(),
+                                                style: const TextStyle(
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                          onTap: () {
+                                            const String imageUrl =
+                                                'assets/login/register.png';
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) =>
+                                                    HeroDetailScreen(
+                                                  imageUrl: imageUrl,
+                                                  task: currentTask,
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                     ),

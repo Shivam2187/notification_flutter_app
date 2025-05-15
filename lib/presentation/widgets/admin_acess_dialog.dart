@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
@@ -40,11 +41,14 @@ void showAdminAcessDialog(BuildContext context) async {
       backgroundColor: Colors.white,
       contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       titlePadding: const EdgeInsets.only(top: 20),
-      title: const Column(
+      title: Column(
         children: [
-          Icon(Icons.warning_amber_rounded, color: Colors.orange, size: 48),
-          SizedBox(height: 10),
-          Text(
+          Lottie.asset(
+            'assets/animations/access_lock.json',
+            repeat: true,
+          ),
+          const SizedBox(height: 10),
+          const Text(
             'Admin Access Required',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,

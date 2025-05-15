@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                         //save mobile number to global store
                         locator.get<GlobalStroe>().userMobileNumber =
                             _emailController.text;
-                            // navigate to home page
+                        // navigate to home page
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
