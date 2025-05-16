@@ -22,7 +22,6 @@ export const employeeEventType = defineType({
             title: 'Email Id',
             name: 'emailId',
             type: 'string',
-            validation: (rule) => rule.required(),
         },
 
         {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
 import 'package:notification_flutter_app/presentation/widgets/appbar.dart';
 import 'package:notification_flutter_app/presentation/widgets/loader.dart';
+import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +44,8 @@ class TaskListPage extends StatelessWidget {
                     ],
                   ),
                   trailing: IconButton(
-                    icon: const Icon(Icons.delete),
+                    icon: Lottie.asset('assets/animations/delete.json',
+                        repeat: true, width: 50, height: 50),
                     onPressed: () async {
                       if (taskDetails.id == null) return;
                       // Calling Delete Task API
@@ -50,15 +53,11 @@ class TaskListPage extends StatelessWidget {
                       final status =
                           await data.deleteTask(taskId: taskDetails.id!);
                       LoaderDialog.hide(context: context);
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
+                      showTopSnackBar(
+                        context: context,
+                        message:
                             status ? 'Succesfully deleted' : 'Failed to delete',
-                          ),
-                          duration: const Duration(seconds: 2),
-                          backgroundColor: status ? Colors.green : Colors.red,
-                        ),
+                        bgColor: status ? Colors.green : Colors.red,
                       );
                     },
                   ),

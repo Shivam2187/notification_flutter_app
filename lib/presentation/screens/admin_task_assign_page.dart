@@ -64,7 +64,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
               DropdownButton<Employee>(
                 value: selectedEmployee,
                 isExpanded: true,
-                hint: const Text('Choose Employee'),
+                hint: const Text('Choose Employee*'),
                 items: employeProvider.employees
                     .map((e) => DropdownMenuItem(
                           value: e,
@@ -85,7 +85,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
                 readOnly: true,
                 onTap: () => _selectDate(context),
                 decoration: InputDecoration(
-                  labelText: "Select Date",
+                  labelText: "Select Date*",
                   prefixIcon: const Icon(Icons.calendar_today),
                   border: const OutlineInputBorder(),
                   helperText: pickedDate != null
@@ -101,7 +101,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
                 controller: descriptionController,
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  labelText: 'Description',
+                  labelText: 'Description*',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -146,8 +146,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
   void _submitTask(EmployeProvider employeProvider) async {
     if (selectedEmployee != null &&
         pickedDate != null &&
-        descriptionController.text.isNotEmpty &&
-        locationLinkController.text.isNotEmpty) {
+        descriptionController.text.isNotEmpty) {
       FocusManager.instance.primaryFocus?.unfocus();
 
       // Calling the API to assign task

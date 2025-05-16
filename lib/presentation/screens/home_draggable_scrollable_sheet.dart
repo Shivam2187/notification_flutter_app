@@ -122,8 +122,8 @@ class _HomeDraggableScrollableSheetState
                                         child: ListTile(
                                           trailing: Lottie.asset(
                                             'assets/animations/eye.json',
-                                            height: 48,
-                                            width: 48,
+                                            height: 45,
+                                            width: 45,
                                             repeat: true,
                                           ),
                                           contentPadding:

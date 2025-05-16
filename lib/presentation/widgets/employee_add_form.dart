@@ -276,17 +276,9 @@ class EmployeeAddFormState extends State<EmployeeAddForm> {
           ),
           _buildTextField(
             _emailController,
-            'Email ID*',
+            'Email ID',
             prefixIcon: const Icon(Icons.email),
             keyboardType: TextInputType.emailAddress,
-            validator: (value) {
-              if (value == null ||
-                  value.isEmpty ||
-                  !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                return 'Enter valid email';
-              }
-              return null;
-            },
           ),
           _buildTextField(
             _addressController,

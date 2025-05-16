@@ -25,8 +25,8 @@ void employeeDetailsDialog(Employee employeeDetails, BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _infoRow(Icons.phone, employeeDetails.mobileNumber),
-          if (employeeDetails.emailId.isNotEmpty)
-            _infoRow(Icons.email, employeeDetails.emailId),
+          if (employeeDetails.emailId?.isNotEmpty ?? false)
+            _infoRow(Icons.email, employeeDetails.emailId!),
           if (employeeDetails.description?.isNotEmpty ?? false)
             _infoRow(Icons.description, employeeDetails.description!),
           if ((employeeDetails.address?.isNotEmpty ?? false))

@@ -13,21 +13,11 @@ class EmployeProvider extends ChangeNotifier {
   List<Task> _taskList = [];
   List<Task> get taskList => _taskList;
 
-  // Fetch data (GET request)
-  Future<void> fetchEmployee() async {
-    try {
-      _employees = await locator.get<SanityService>().fetchEmployee();
-      notifyListeners();
-    } catch (e) {
-      print('Error fetching employees: $e');
-    }
-  }
-
-  // Create data (POST request)
+// Create data (POST request)
   Future<bool> addEmployee({
     required String employeeName,
     required String mobileNumber,
-    required String emailId,
+    String? emailId,
     String? description,
     String? address,
   }) async {
@@ -50,15 +40,32 @@ class EmployeProvider extends ChangeNotifier {
     }
   }
 
-  // Fetch All Task (GET request)
-  Future<List<Task>> fetchAllTask() async {
+  // Fetch Employee List (GET request)
+  Future<void> fetchEmployee() async {
     try {
-      _taskList = await locator.get<SanityService>().fetchAllTask();
+      _employees = await locator.get<SanityService>().fetchEmployee();
       notifyListeners();
-      return _taskList;
     } catch (e) {
       print('Error fetching employees: $e');
-      return [];
+    }
+  }
+
+  // Delete Employee (DELETE request)
+  Future<bool> deleteEmployee({
+    required String employeeId,
+  }) async {
+    try {
+      final status = await locator.get<SanityService>().deleteEmployee(
+            employeeId: employeeId,
+          );
+      if (status) {
+        fetchEmployee();
+      }
+
+      return status;
+    } catch (e) {
+      print('Error Deleting post: $e');
+      return false;
     }
   }
 
@@ -88,6 +95,18 @@ class EmployeProvider extends ChangeNotifier {
     } catch (e) {
       print('Error creating post: $e');
       return false;
+    }
+  }
+
+  // Fetch All Task (GET request)
+  Future<List<Task>> fetchAllTask() async {
+    try {
+      _taskList = await locator.get<SanityService>().fetchAllTask();
+      notifyListeners();
+      return _taskList;
+    } catch (e) {
+      print('Error fetching employees: $e');
+      return [];
     }
   }
 

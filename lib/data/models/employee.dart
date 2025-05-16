@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 class Employee {
   final String employeeName;
   final String mobileNumber;
-  final String emailId;
+  final String? emailId;
 
   @JsonKey(name: '_id')
   final String? id;
@@ -15,7 +15,7 @@ class Employee {
     this.id,
     required this.employeeName,
     required this.mobileNumber,
-    required this.emailId,
+    this.emailId,
     this.address,
     this.description,
   });
@@ -23,7 +23,7 @@ class Employee {
     return Employee(
       id: json['_id'] as String?,
       employeeName: json['employeeName'] as String,
-      emailId: json['emailId'] as String,
+      emailId: json['emailId'] as String?,
       mobileNumber: json['mobileNumber'] as String,
       address: json['address'] as String?,
       description: json['description'] as String?,

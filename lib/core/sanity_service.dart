@@ -14,10 +14,9 @@ class SanityService {
   String dataset = 'production';
   String apiVersion = "v2025-05-10";
 
-  // Fetch data (GET request)
-  Future<List<Employee>> fetchEmployee() async {
-    const query =
-        '*[_type == "employeeEvent"]{ _id, employeeName, description, mobileNumber, address, emailId}';
+  // Fetch Secret Key (GET request)
+  Future<List<SecretKey>> fetchSecretKey() async {
+    const query = '*[_type == "secretKeys"]{ _id, key, value}';
     final encodedQuery = Uri.encodeComponent(query);
     final url =
         'https://$projectId.api.sanity.io/$apiVersion/data/query/$dataset?query=$encodedQuery';
@@ -25,11 +24,10 @@ class SanityService {
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body)['result'];
       print(data);
-      final employees = data.map((json) {
-        return Employee.fromJson(json);
+      final secretKey = data.map((json) {
+        return SecretKey.fromJson(json);
       }).toList();
-
-      return employees;
+      return secretKey;
     } else {
       throw Exception('Failed to fetch posts');
     }
@@ -75,33 +73,14 @@ class SanityService {
     if (response.statusCode == 200) {
       return true;
     } else {
-      throw Exception('Failed to create post');
+      throw Exception('Failed to Add Employee');
     }
   }
 
-  // Fetch Secret Key (GET request)
-  Future<List<SecretKey>> fetchSecretKey() async {
-    const query = '*[_type == "secretKeys"]{ _id, key, value}';
-    final encodedQuery = Uri.encodeComponent(query);
-    final url =
-        'https://$projectId.api.sanity.io/$apiVersion/data/query/$dataset?query=$encodedQuery';
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body)['result'];
-      print(data);
-      final secretKey = data.map((json) {
-        return SecretKey.fromJson(json);
-      }).toList();
-      return secretKey;
-    } else {
-      throw Exception('Failed to fetch posts');
-    }
-  }
-
-  // Fetch All Task (GET request)
-  Future<List<Task>> fetchAllTask() async {
+  // Fetch data (GET request)
+  Future<List<Employee>> fetchEmployee() async {
     const query =
-        '*[_type == "taskEvent"]{ _id, employeeName, taskComplitionDate,description,emailId,locationLink, mobileNumber}';
+        '*[_type == "employeeEvent"]{ _id, employeeName, description, mobileNumber, address, emailId}';
     final encodedQuery = Uri.encodeComponent(query);
     final url =
         'https://$projectId.api.sanity.io/$apiVersion/data/query/$dataset?query=$encodedQuery';
@@ -109,12 +88,48 @@ class SanityService {
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body)['result'];
       print(data);
-      final taskList = data.map((json) {
-        return Task.fromJson(json);
+      final employees = data.map((json) {
+        return Employee.fromJson(json);
       }).toList();
-      return taskList;
+
+      return employees;
     } else {
-      throw Exception('Failed to fetch posts');
+      throw Exception('Failed to fetch Employe List');
+    }
+  }
+
+  //Delete Task (DELETE request)
+  Future<bool> deleteEmployee({
+    required String employeeId,
+  }) async {
+    final url =
+        'https://$projectId.api.sanity.io/$apiVersion/data/mutate/$dataset';
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'Bearer ${locator.get<GlobalStroe>().getSecretValue(key: 'apiKey')}',
+    };
+
+    final body = jsonEncode({
+      'mutations': [
+        {
+          'delete': {
+            'id': employeeId,
+          }
+        }
+      ]
+    });
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Failed to delete Employee');
     }
   }
 
@@ -164,8 +179,27 @@ class SanityService {
     }
   }
 
-  //Delete Task (DELETE request)
+  // Fetch All Task (GET request)
+  Future<List<Task>> fetchAllTask() async {
+    const query =
+        '*[_type == "taskEvent"]{ _id, employeeName, taskComplitionDate,description,emailId,locationLink, mobileNumber}';
+    final encodedQuery = Uri.encodeComponent(query);
+    final url =
+        'https://$projectId.api.sanity.io/$apiVersion/data/query/$dataset?query=$encodedQuery';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body)['result'];
+      print(data);
+      final taskList = data.map((json) {
+        return Task.fromJson(json);
+      }).toList();
+      return taskList;
+    } else {
+      throw Exception('Failed to fetch posts');
+    }
+  }
 
+  //Delete Task (DELETE request)
   Future<bool> deleteTask({
     required String taskId,
   }) async {

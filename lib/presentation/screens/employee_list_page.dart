@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/presentation/widgets/add_employee_bottomsheet.dart';
 import 'package:notification_flutter_app/presentation/widgets/employee_details_dialog.dart';
+import 'package:notification_flutter_app/presentation/widgets/loader.dart';
+import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
@@ -50,8 +52,8 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(employeeDetails.mobileNumber),
-                            if (employeeDetails.emailId.isNotEmpty)
-                              Text(employeeDetails.emailId),
+                            if (employeeDetails.emailId?.isNotEmpty ?? false)
+                              Text(employeeDetails.emailId!),
                           ],
                         ),
                         leading: CircleAvatar(
@@ -65,6 +67,25 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                         ),
                         onTap: () =>
                             employeeDetailsDialog(employeeDetails, context),
+                        trailing: IconButton(
+                          icon: Lottie.asset('assets/animations/delete.json',
+                              repeat: true, width: 50, height: 50),
+                          onPressed: () async {
+                            if (employeeDetails.id == null) return;
+                            // Calling Delete Task API
+                            LoaderDialog.show(context: context);
+                            final status = await data.deleteEmployee(
+                                employeeId: employeeDetails.id!);
+                            LoaderDialog.hide(context: context);
+                            showTopSnackBar(
+                              context: context,
+                              message: status
+                                  ? 'Succesfully deleted'
+                                  : 'Failed to delete',
+                              bgColor: status ? Colors.green : Colors.red,
+                            );
+                          },
+                        ),
                       ),
                     );
                   },
