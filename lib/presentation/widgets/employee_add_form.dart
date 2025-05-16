@@ -221,21 +221,16 @@ class EmployeeAddFormState extends State<EmployeeAddForm> {
             address: address,
           );
 
-      LoaderDialog.hide(context);
+      LoaderDialog.hide(context: context);
 
-      if (status) {
-        showTopSnackBar(
-          context: context,
-          message: 'Employee added successfully',
-          bgColor: Colors.green,
-        );
-        Navigator.pop(context);
-      } else {
-        showTopSnackBar(
-          context: context,
-          message: 'Failed to add employee',
-        );
-      }
+      if (status) Navigator.pop(context);
+
+      showTopSnackBar(
+        context: context,
+        message:
+            status ? 'Employee added successfully' : 'Failed to add employee',
+        bgColor: status ? Colors.green : Colors.red,
+      );
     }
   }
 

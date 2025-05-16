@@ -31,7 +31,9 @@ class LoaderDialog {
     );
   }
 
-  static void hide(BuildContext context) {
+  static void hide({
+    required BuildContext context,
+  }) {
     Navigator.of(context, rootNavigator: true).pop();
   }
 }

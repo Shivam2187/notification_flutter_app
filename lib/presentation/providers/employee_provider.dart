@@ -90,4 +90,23 @@ class EmployeProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  // Create data (POST request)
+  Future<bool> deleteTask({
+    required String taskId,
+  }) async {
+    try {
+      final status = await locator.get<SanityService>().deleteTask(
+            taskId: taskId,
+          );
+      if (status) {
+        fetchAllTask();
+      }
+
+      return status;
+    } catch (e) {
+      print('Error Deleting post: $e');
+      return false;
+    }
+  }
 }

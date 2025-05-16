@@ -20,7 +20,7 @@ void showAdminAcessDialog(BuildContext context) async {
       LoaderDialog.show(context: context);
       await Provider.of<EmployeProvider>(context, listen: false)
           .fetchEmployee();
-      LoaderDialog.hide(context);
+      LoaderDialog.hide(context: context);
 
       Navigator.pop(context); // close the dialog
       Navigator.push(

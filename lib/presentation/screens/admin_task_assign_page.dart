@@ -149,9 +149,9 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
         descriptionController.text.isNotEmpty &&
         locationLinkController.text.isNotEmpty) {
       FocusManager.instance.primaryFocus?.unfocus();
-      LoaderDialog.show(
-        context: context,
-      );
+
+      // Calling the API to assign task
+      LoaderDialog.show(context: context);
       final status = await employeProvider.addTask(
         employeeName: selectedEmployee?.employeeName ?? '',
         description: descriptionController.text,
@@ -160,14 +160,9 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
         locationLink: locationLinkController.text,
         mobileNiumber: selectedEmployee?.mobileNumber ?? '',
       );
-      LoaderDialog.hide(context);
+      LoaderDialog.hide(context: context);
 
       if (status) {
-        showTopSnackBar(
-          context: context,
-          message: 'Task Assigned Successfully!',
-          bgColor: Colors.green,
-        );
         descriptionController.clear();
         locationLinkController.clear();
         _controller.clear();
@@ -175,9 +170,14 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
           selectedEmployee = null;
           pickedDate = null;
         });
-      } else {
-        showTopSnackBar(context: context, message: 'Failed to assign task!');
       }
+
+      showTopSnackBar(
+        context: context,
+        message:
+            status ? 'Task Assigned Successfully!' : 'Failed to assign task!',
+        bgColor: status ? Colors.green : Colors.red,
+      );
     } else {
       showTopSnackBar(context: context, message: 'Please fill all fields!!');
     }

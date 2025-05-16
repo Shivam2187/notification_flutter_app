@@ -132,7 +132,8 @@ class HeroDetailScreen extends StatelessWidget {
             onTap: () async {
               if (locationLink != null && locationLink.isNotEmpty) {
                 final Uri url = Uri.parse(locationLink);
-                if (await canLaunchUrl(url)) {
+                final canLaunch = await canLaunchUrl(url);
+                if (canLaunch) {
                   await launchUrl(url);
                 } else {
                   showTopSnackBar(

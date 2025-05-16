@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
 import 'package:notification_flutter_app/presentation/widgets/appbar.dart';
+import 'package:notification_flutter_app/presentation/widgets/loader.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +40,27 @@ class TaskListPage extends StatelessWidget {
                       Text(taskDetails.description),
                       Text(taskDetails.taskComplitionDate.toSlashDate()),
                     ],
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () async {
+                      if (taskDetails.id == null) return;
+                      // Calling Delete Task API
+                      LoaderDialog.show(context: context);
+                      final status =
+                          await data.deleteTask(taskId: taskDetails.id!);
+                      LoaderDialog.hide(context: context);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            status ? 'Succesfully deleted' : 'Failed to delete',
+                          ),
+                          duration: const Duration(seconds: 2),
+                          backgroundColor: status ? Colors.green : Colors.red,
+                        ),
+                      );
+                    },
                   ),
                 ),
               );

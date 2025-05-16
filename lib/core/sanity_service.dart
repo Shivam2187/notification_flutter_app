@@ -163,4 +163,40 @@ class SanityService {
       throw Exception('Failed to create post');
     }
   }
+
+  //Delete Task (DELETE request)
+
+  Future<bool> deleteTask({
+    required String taskId,
+  }) async {
+    final url =
+        'https://$projectId.api.sanity.io/$apiVersion/data/mutate/$dataset';
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':
+          'Bearer ${locator.get<GlobalStroe>().getSecretValue(key: 'apiKey')}',
+    };
+
+    final body = jsonEncode({
+      'mutations': [
+        {
+          'delete': {
+            'id': taskId,
+          }
+        }
+      ]
+    });
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception('Failed to delete task');
+    }
+  }
 }
