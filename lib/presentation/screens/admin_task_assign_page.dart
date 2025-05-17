@@ -60,7 +60,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Select Employee'),
+              const Text('Select Employee*'),
               DropdownButton<Employee>(
                 value: selectedEmployee,
                 isExpanded: true,
@@ -68,7 +68,8 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
                 items: employeProvider.employees
                     .map((e) => DropdownMenuItem(
                           value: e,
-                          child: Text('${e.employeeName} - ${e.mobileNumber}'),
+                          child: Text(
+                              '${e.employeeName} - ${e.employeeMobileNumber}'),
                         ))
                     .toList(),
                 onChanged: (value) {
@@ -78,7 +79,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
                 },
               ),
               const SizedBox(height: 16),
-              const Text('Last Date of Work'),
+              const Text('Last Date of Work*'),
               const SizedBox(height: 16),
               TextField(
                 controller: _controller,
@@ -157,7 +158,7 @@ class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
         emailId: selectedEmployee?.emailId ?? '',
         taskComplitionDate: pickedDate.toString(),
         locationLink: locationLinkController.text,
-        mobileNiumber: selectedEmployee?.mobileNumber ?? '',
+        mobileNiumber: selectedEmployee?.employeeMobileNumber ?? '',
       );
       LoaderDialog.hide(context: context);
 

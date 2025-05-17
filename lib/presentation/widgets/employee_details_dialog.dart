@@ -14,8 +14,8 @@ void employeeDetailsDialog(Employee employeeDetails, BuildContext context) {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              employeeDetails.employeeName,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              employeeDetails.employeeName.toUpperCase(),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
         ],
@@ -24,15 +24,14 @@ void employeeDetailsDialog(Employee employeeDetails, BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _infoRow(Icons.phone, employeeDetails.mobileNumber),
+          _infoRow(Icons.phone, employeeDetails.employeeMobileNumber),
           if (employeeDetails.emailId?.isNotEmpty ?? false)
             _infoRow(Icons.email, employeeDetails.emailId!),
           if (employeeDetails.description?.isNotEmpty ?? false)
             _infoRow(Icons.description, employeeDetails.description!),
           if ((employeeDetails.address?.isNotEmpty ?? false))
-            const SizedBox(height: 10),
-          if ((employeeDetails.address?.isNotEmpty ?? false))
-            _infoRow(Icons.home, employeeDetails.address!),
+            if ((employeeDetails.address?.isNotEmpty ?? false))
+              _infoRow(Icons.home, employeeDetails.address!),
         ],
       ),
       actions: [

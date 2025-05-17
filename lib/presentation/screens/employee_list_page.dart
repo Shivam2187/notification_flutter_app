@@ -51,7 +51,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(employeeDetails.mobileNumber),
+                            Text(employeeDetails.employeeMobileNumber),
                             if (employeeDetails.emailId?.isNotEmpty ?? false)
                               Text(employeeDetails.emailId!),
                           ],

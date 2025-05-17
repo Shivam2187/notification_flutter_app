@@ -30,7 +30,7 @@ class TaskListPage extends StatelessWidget {
                   leading: CircleAvatar(
                     backgroundColor: Colors.blue,
                     child: Text(
-                      (index + 1).toString(),
+                      ('#${index + 1}').toString(),
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),

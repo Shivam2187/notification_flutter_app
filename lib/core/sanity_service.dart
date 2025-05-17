@@ -36,7 +36,7 @@ class SanityService {
   // Add Employee (POST request)
   Future<bool> addEmployee({
     required String employeeName,
-    required String mobileNumber,
+    required String employeeMobileNumber,
     String? description,
     String? address,
     String? emailId,
@@ -55,7 +55,7 @@ class SanityService {
           'create': {
             '_type': 'employeeEvent',
             'employeeName': employeeName,
-            'mobileNumber': mobileNumber,
+            'employeeMobileNumber': employeeMobileNumber,
             'address': address,
             'emailId': emailId,
             'description': description,
@@ -80,7 +80,7 @@ class SanityService {
   // Fetch data (GET request)
   Future<List<Employee>> fetchEmployee() async {
     const query =
-        '*[_type == "employeeEvent"]{ _id, employeeName, description, mobileNumber, address, emailId}';
+        '*[_type == "employeeEvent"]{ _id, employeeName, description, employeeMobileNumber, address, emailId}';
     final encodedQuery = Uri.encodeComponent(query);
     final url =
         'https://$projectId.api.sanity.io/$apiVersion/data/query/$dataset?query=$encodedQuery';

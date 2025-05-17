@@ -16,7 +16,7 @@ class EmployeProvider extends ChangeNotifier {
 // Create data (POST request)
   Future<bool> addEmployee({
     required String employeeName,
-    required String mobileNumber,
+    required String employeeMobileNumber,
     String? emailId,
     String? description,
     String? address,
@@ -24,7 +24,7 @@ class EmployeProvider extends ChangeNotifier {
     try {
       final status = await locator.get<SanityService>().addEmployee(
             employeeName: employeeName,
-            mobileNumber: mobileNumber,
+            employeeMobileNumber: employeeMobileNumber,
             description: description,
             address: address,
             emailId: emailId,
@@ -127,5 +127,16 @@ class EmployeProvider extends ChangeNotifier {
       print('Error Deleting post: $e');
       return false;
     }
+  }
+
+  List<Task> getFilteredAndSortedTask({
+    required String userMobileNumber,
+  }) {
+    final filteredTasks = taskList
+        .where((task) => task.mobileNumber == userMobileNumber)
+        .toList();
+    filteredTasks
+        .sort((a, b) => a.taskComplitionDate.compareTo(b.taskComplitionDate));
+    return filteredTasks;
   }
 }

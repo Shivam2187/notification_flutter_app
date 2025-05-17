@@ -1,3 +1,5 @@
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_flutter_app/presentation/screens/admin_task_assign_page.dart';
 import 'package:notification_flutter_app/presentation/screens/employee_list_page.dart';
@@ -23,31 +25,33 @@ class _AdminPageState extends State<AdminPage> {
     ];
     return Scaffold(
       body: widgetOptions[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.deepPurple,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        showUnselectedLabels: true,
-        currentIndex: currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'All Employee',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.task),
-            label: 'All Task',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_task),
-            label: 'Add Task',
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+      bottomNavigationBar: Material(
+        elevation: 32,
+        child: CurvedNavigationBar(
+          animationDuration: const Duration(milliseconds: 600),
+          color: Colors.white,
+          buttonBackgroundColor: Colors.grey,
+          index: currentIndex,
+          items: const [
+            CurvedNavigationBarItem(
+              child: Icon(Icons.people),
+              label: 'All Employee',
+            ),
+            CurvedNavigationBarItem(
+              child: Icon(Icons.task),
+              label: 'All Task',
+            ),
+            CurvedNavigationBarItem(
+              child: Icon(Icons.add_task),
+              label: 'Add Task',
+            ),
+          ],
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+        ),
       ),
     );
   }
