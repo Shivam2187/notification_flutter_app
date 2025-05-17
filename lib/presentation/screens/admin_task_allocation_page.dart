@@ -7,16 +7,17 @@ import 'package:notification_flutter_app/presentation/providers/employee_provide
 
 import 'package:notification_flutter_app/presentation/widgets/appbar.dart';
 
-class AdminTaskAssignPage extends StatefulWidget {
-  const AdminTaskAssignPage({
+class AdminTaskAllocationPage extends StatefulWidget {
+  const AdminTaskAllocationPage({
     super.key,
   });
 
   @override
-  State<AdminTaskAssignPage> createState() => _AdminTaskAssignPageState();
+  State<AdminTaskAllocationPage> createState() =>
+      _AdminTaskAllocationPageState();
 }
 
-class _AdminTaskAssignPageState extends State<AdminTaskAssignPage> {
+class _AdminTaskAllocationPageState extends State<AdminTaskAllocationPage> {
   final List<int> daysOptions = List.generate(100, (index) => index + 1);
   Employee? selectedEmployee;
   final TextEditingController descriptionController = TextEditingController();

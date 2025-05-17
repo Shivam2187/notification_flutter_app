@@ -29,13 +29,13 @@ export const taskEventTypes = defineType({
             name: 'locationLink',
             title: 'Location Link',
             type: 'string',
-            
+
         },
         {
             name: 'emailId',
             title: 'Email Id',
             type: 'string',
-            validation: (Rule) => Rule.required(),
+
         },
         {
             name: 'mobileNumber',
@@ -43,5 +43,15 @@ export const taskEventTypes = defineType({
             type: 'string',
             validation: (Rule) => Rule.required(),
         },
+        {
+            name: 'isTaskCompleted',
+            title: 'Is Task Completed',
+            type: 'boolean',
+            initialValue: false,
+
+            options: {
+                layout: 'checkbox',
+            },
+        }
     ],
 })

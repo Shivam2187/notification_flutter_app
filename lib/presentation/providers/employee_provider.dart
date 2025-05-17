@@ -139,4 +139,24 @@ class EmployeProvider extends ChangeNotifier {
         .sort((a, b) => a.taskComplitionDate.compareTo(b.taskComplitionDate));
     return filteredTasks;
   }
+
+  // Create data (POST request)
+  Future<bool> updateTaskStatus({
+    required String taskId,
+  }) async {
+    try {
+      final status = await locator.get<SanityService>().updateTaskStatus(
+            taskStatus: true,
+            taskId: taskId,
+          );
+      if (status) {
+        fetchAllTask();
+      }
+
+      return status;
+    } catch (e) {
+      print('Error while Updating Task Status: $e');
+      return false;
+    }
+  }
 }

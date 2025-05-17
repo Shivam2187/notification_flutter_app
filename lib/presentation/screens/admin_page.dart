@@ -1,9 +1,9 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_flutter_app/presentation/screens/admin_task_assign_page.dart';
+import 'package:notification_flutter_app/presentation/screens/admin_task_allocation_page.dart';
 import 'package:notification_flutter_app/presentation/screens/employee_list_page.dart';
-import 'package:notification_flutter_app/presentation/screens/task_list_page.dart';
+import 'package:notification_flutter_app/presentation/screens/admin_task_dashboard.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({
@@ -20,8 +20,8 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     final widgetOptions = <Widget>[
       const EmployeeListPage(),
-      const TaskListPage(),
-      const AdminTaskAssignPage(),
+      const AdminTaskDashboard(),
+      const AdminTaskAllocationPage(),
     ];
     return Scaffold(
       body: widgetOptions[currentIndex],

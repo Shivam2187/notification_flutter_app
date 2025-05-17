@@ -6,7 +6,7 @@ import 'package:notification_flutter_app/data/models/task.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
 import 'package:notification_flutter_app/presentation/widgets/admin_acess_dialog.dart';
 import 'package:notification_flutter_app/presentation/widgets/carousel_slider.dart';
-import 'package:notification_flutter_app/presentation/widgets/hero_widget.dart';
+import 'package:notification_flutter_app/presentation/widgets/task_detail_hero_page.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
@@ -130,7 +130,14 @@ class _HomeDraggableScrollableSheetState
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Hero(
-                                tag: 'hero-image',
+                                tag: currentTask.id ?? '',
+                                flightShuttleBuilder: (flightContext, animation,
+                                    direction, fromContext, toContext) {
+                                  return Lottie.asset(
+                                    'assets/animations/rocketFly.json',
+                                    repeat: true,
+                                  );
+                                },
                                 child: ListTile(
                                   trailing: AnimateIcon(
                                     color: Colors.grey.shade800,
@@ -138,7 +145,7 @@ class _HomeDraggableScrollableSheetState
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) => HeroDetailScreen(
+                                          builder: (_) => TaskDetailHeroPage(
                                             imageUrl: imageUrl,
                                             task: currentTask,
                                           ),
@@ -209,7 +216,7 @@ class _HomeDraggableScrollableSheetState
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (_) => HeroDetailScreen(
+                                        builder: (_) => TaskDetailHeroPage(
                                           imageUrl: imageUrl,
                                           task: currentTask,
                                         ),
