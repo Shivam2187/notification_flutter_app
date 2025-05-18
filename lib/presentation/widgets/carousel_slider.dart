@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 
@@ -24,8 +25,8 @@ class _AutoCarouselSliderState extends State<AutoCarouselSlider> {
           items: imageUrls.map((url) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                url,
+              child: CachedNetworkImage(
+                imageUrl: url,
                 fit: BoxFit.cover,
                 width: double.infinity,
               ),
@@ -34,7 +35,7 @@ class _AutoCarouselSliderState extends State<AutoCarouselSlider> {
           options: CarouselOptions(
             autoPlay: true,
             enlargeCenterPage: true,
-            viewportFraction: 0.9,
+            viewportFraction: 0.75,
             aspectRatio: 2,
             onPageChanged: (index, reason) {
               setState(() {
