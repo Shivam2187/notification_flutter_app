@@ -5,7 +5,7 @@ import 'package:notification_flutter_app/presentation/providers/employee_provide
 import 'package:notification_flutter_app/presentation/widgets/appbar.dart';
 import 'package:notification_flutter_app/presentation/widgets/linkify_widget.dart';
 import 'package:notification_flutter_app/presentation/widgets/loader.dart';
-import 'package:notification_flutter_app/presentation/widgets/stylish_search_field.dart';
+import 'package:notification_flutter_app/presentation/widgets/custom_search.dart';
 import 'package:notification_flutter_app/presentation/widgets/task_detail_hero_page.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
@@ -30,7 +30,7 @@ class AdminTaskDashboard extends StatelessWidget {
           ),
           body: Column(
             children: [
-              StylishSearchField(
+              CustomSearchBar(
                 onChanged: (value) {
                   data.setTaskSearchQuery(value);
                 },
@@ -39,6 +39,7 @@ class AdminTaskDashboard extends StatelessWidget {
               if (filteredTaskList.isNotEmpty)
                 Expanded(
                   child: ListView.builder(
+                    padding: EdgeInsets.only(bottom: 16),
                     keyboardDismissBehavior:
                         ScrollViewKeyboardDismissBehavior.onDrag,
                     itemCount: filteredTaskList.length,
@@ -57,6 +58,7 @@ class AdminTaskDashboard extends StatelessWidget {
                             );
                           },
                           child: ListTile(
+                            contentPadding: EdgeInsets.only(left: 8),
                             leading: CircleAvatar(
                               backgroundColor: Colors.blue,
                               child: Text(
@@ -101,10 +103,11 @@ class AdminTaskDashboard extends StatelessWidget {
                             ),
                             trailing: IconButton(
                               icon: Lottie.asset(
-                                  'assets/animations/delete.json',
-                                  repeat: true,
-                                  width: 50,
-                                  height: 50),
+                                'assets/animations/delete.json',
+                                repeat: true,
+                                width: 50,
+                                height: 50,
+                              ),
                               onPressed: () async {
                                 if (currentTask.id == null) return;
                                 // Calling Delete Task API

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class StylishSearchField extends StatefulWidget {
+class CustomSearchBar extends StatefulWidget {
   final Function(String) onChanged;
   final String initialText;
 
-  const StylishSearchField(
+  const CustomSearchBar(
       {super.key, required this.onChanged, required this.initialText});
 
   @override
-  State<StylishSearchField> createState() => _StylishSearchFieldState();
+  State<CustomSearchBar> createState() => _CustomSearchBarState();
 }
 
-class _StylishSearchFieldState extends State<StylishSearchField> {
+class _CustomSearchBarState extends State<CustomSearchBar> {
   bool isFocused = false;
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _controller = TextEditingController();

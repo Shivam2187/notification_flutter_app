@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/presentation/widgets/add_employee_bottomsheet.dart';
 import 'package:notification_flutter_app/presentation/widgets/employee_details_dialog.dart';
 import 'package:notification_flutter_app/presentation/widgets/loader.dart';
-import 'package:notification_flutter_app/presentation/widgets/stylish_search_field.dart';
+import 'package:notification_flutter_app/presentation/widgets/custom_search.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +43,7 @@ class _AdminEmployeeDashboardState extends State<AdminEmployeeDashboard> {
                 )
               : Column(
                   children: [
-                    StylishSearchField(
+                    CustomSearchBar(
                       onChanged: (value) {
                         data.setEmployeeSearchQuery(value);
                       },
@@ -52,6 +52,7 @@ class _AdminEmployeeDashboardState extends State<AdminEmployeeDashboard> {
                     if (filteredEmployeeList.isNotEmpty)
                       Expanded(
                         child: ListView.builder(
+                          padding: const EdgeInsets.only(bottom: 32),
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           itemCount: filteredEmployeeList.length,
