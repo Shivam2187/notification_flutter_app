@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/login/register.png'),
+                          image: AssetImage('assets/login/rod.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const Expanded(
                             child: Center(
-                              child: Text('ndd'),
+                              child: Text(''),
                             ),
                           ),
                         ],

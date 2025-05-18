@@ -19,7 +19,7 @@ class AdminTaskDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String imageUrl = 'assets/login/register.png';
+    const String imageUrl = 'assets/login/rod_stock.jpg';
     return Consumer<EmployeProvider>(
       builder: (context, data, child) {
         final filteredTaskList = data.getFilteredTask;
@@ -39,7 +39,7 @@ class AdminTaskDashboard extends StatelessWidget {
               if (filteredTaskList.isNotEmpty)
                 Expanded(
                   child: ListView.builder(
-                    padding: EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: 16),
                     keyboardDismissBehavior:
                         ScrollViewKeyboardDismissBehavior.onDrag,
                     itemCount: filteredTaskList.length,
@@ -48,99 +48,96 @@ class AdminTaskDashboard extends StatelessWidget {
                       final remaningDays = getRemainingDays(currentTask);
                       return Card(
                         margin: const EdgeInsets.all(8),
-                        child: Hero(
-                          tag: currentTask.id ?? '',
-                          flightShuttleBuilder: (flightContext, animation,
-                              direction, fromContext, toContext) {
-                            return Lottie.asset(
-                              'assets/animations/rocketFly.json',
-                              repeat: true,
-                            );
-                          },
-                          child: ListTile(
-                            contentPadding: EdgeInsets.only(left: 8),
-                            leading: CircleAvatar(
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.only(left: 8),
+                          leading: Hero(
+                            tag: currentTask.id ?? '',
+                            flightShuttleBuilder: (flightContext, animation,
+                                direction, fromContext, toContext) {
+                              return Image.asset(imageUrl);
+                            },
+                            child: CircleAvatar(
                               backgroundColor: Colors.blue,
                               child: Text(
                                 ('#${index + 1}').toString(),
                                 style: const TextStyle(color: Colors.white),
                               ),
                             ),
-                            title: Text(
-                              currentTask.employeeName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                          ),
+                          title: Text(
+                            currentTask.employeeName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              LinkifyWidget(
+                                description: currentTask.description,
                               ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                LinkifyWidget(
-                                  description: currentTask.description,
-                                ),
-                                Text(
-                                  'Due Date: ${currentTask.taskComplitionDate.toSlashDate()}',
-                                ),
-                                Shimmer.fromColors(
-                                  baseColor: remaningDays <= 0
-                                      ? Colors.red
-                                      : Colors.grey.shade600,
-                                  highlightColor: Colors.white,
-                                  child: Text(
-                                    remaningDays == 0
-                                        ? 'Due Today'
-                                        : '${getRemainingDays(currentTask)} days left',
-                                    style: TextStyle(
-                                      color: remaningDays <= 0
-                                          ? Colors.red
-                                          : Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            trailing: IconButton(
-                              icon: Lottie.asset(
-                                'assets/animations/delete.json',
-                                repeat: true,
-                                width: 50,
-                                height: 50,
+                              Text(
+                                'Due Date: ${currentTask.taskComplitionDate.toSlashDate()}',
                               ),
-                              onPressed: () async {
-                                if (currentTask.id == null) return;
-                                // Calling Delete Task API
-                                LoaderDialog.show(context: context);
-                                final status = await data.deleteTask(
-                                    taskId: currentTask.id!);
-                                LoaderDialog.hide(context: context);
-                                showTopSnackBar(
-                                  context: context,
-                                  message: status
-                                      ? 'Succesfully deleted'
-                                      : 'Failed to delete',
-                                  bgColor: status ? Colors.green : Colors.red,
-                                );
-                              },
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => TaskDetailHeroPage(
-                                    imageUrl: imageUrl,
-                                    task: currentTask,
-                                    isCompleyedButtonVisible: true,
-                                    onPressed: () async {
-                                      return await data.updateTaskStatus(
-                                          taskId: currentTask.id ?? '');
-                                    },
+                              Shimmer.fromColors(
+                                baseColor: remaningDays <= 0
+                                    ? Colors.red
+                                    : Colors.grey.shade600,
+                                highlightColor: Colors.white,
+                                child: Text(
+                                  remaningDays == 0
+                                      ? 'Due Today'
+                                      : '${getRemainingDays(currentTask)} days left',
+                                  style: TextStyle(
+                                    color: remaningDays <= 0
+                                        ? Colors.red
+                                        : Colors.grey.shade600,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                              )
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: Lottie.asset(
+                              'assets/animations/delete.json',
+                              repeat: true,
+                              width: 50,
+                              height: 50,
+                            ),
+                            onPressed: () async {
+                              if (currentTask.id == null) return;
+                              // Calling Delete Task API
+                              LoaderDialog.show(context: context);
+                              final status = await data.deleteTask(
+                                  taskId: currentTask.id!);
+                              LoaderDialog.hide(context: context);
+                              showTopSnackBar(
+                                context: context,
+                                message: status
+                                    ? 'Succesfully deleted'
+                                    : 'Failed to delete',
+                                bgColor: status ? Colors.green : Colors.red,
                               );
                             },
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => TaskDetailHeroPage(
+                                  imageUrl: imageUrl,
+                                  task: currentTask,
+                                  isCompleyedButtonVisible: true,
+                                  onPressed: () async {
+                                    return await data.updateTaskStatus(
+                                        taskId: currentTask.id ?? '');
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       );
                     },

@@ -50,7 +50,7 @@ class _HomeDraggableScrollableSheetState
   @override
   Widget build(BuildContext context) {
     final userMobileNumber = locator.get<GlobalStroe>().userMobileNumber;
-    const String imageUrl = 'assets/login/register.png';
+    const String imageUrl = 'assets/login/rod_stock.jpg';
 
     if (_isLoading) {
       return Lottie.asset(
@@ -121,96 +121,11 @@ class _HomeDraggableScrollableSheetState
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Hero(
-                                tag: currentTask.id ?? '',
-                                flightShuttleBuilder: (flightContext, animation,
-                                    direction, fromContext, toContext) {
-                                  return Lottie.asset(
-                                    'assets/animations/rocketFly.json',
-                                    repeat: true,
-                                  );
-                                },
-                                child: Stack(
-                                  children: [
-                                    ListTile(
-                                      trailing: AnimateIcon(
-                                        color: Colors.grey.shade800,
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) =>
-                                                  TaskDetailHeroPage(
-                                                imageUrl: imageUrl,
-                                                task: currentTask,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        iconType: IconType.continueAnimation,
-                                        width: 24,
-                                        animateIcon: AnimateIcons.eye,
-                                      ),
-                                      contentPadding: const EdgeInsets.all(8),
-                                      leading: CircleAvatar(
-                                        backgroundColor: Colors.blueAccent,
-                                        child: Text(
-                                          currentTask.employeeName
-                                              .getInitials(),
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        currentTask.employeeName,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      subtitle: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          if (currentTask
-                                              .description.isNotEmpty) ...[
-                                            const SizedBox(height: 4),
-                                            LinkifyWidget(
-                                              description:
-                                                  currentTask.description,
-                                            ),
-                                          ],
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            'Due Date : ${currentTask.taskComplitionDate.toSlashDate()}',
-                                            style: const TextStyle(
-                                                color: Colors.grey),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          if (!currentTask.isTaskCompleted)
-                                            Shimmer.fromColors(
-                                              baseColor: remaningDays <= 0
-                                                  ? Colors.red
-                                                  : remaningDays == 1
-                                                      ? Colors.blue
-                                                      : Colors.grey.shade600,
-                                              highlightColor: Colors.white,
-                                              child: Text(
-                                                remaningDays <= 0
-                                                    ? 'Overdue'
-                                                    : remaningDays == 1
-                                                        ? 'Due Today'
-                                                        : '${getRemainingDays(currentTask)} days left',
-                                                style: TextStyle(
-                                                  color: remaningDays <= 1
-                                                      ? Colors.red
-                                                      : Colors.grey.shade600,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                        ],
-                                      ),
+                              child: Stack(
+                                children: [
+                                  ListTile(
+                                    trailing: AnimateIcon(
+                                      color: Colors.grey.shade800,
                                       onTap: () {
                                         Navigator.push(
                                           context,
@@ -222,10 +137,98 @@ class _HomeDraggableScrollableSheetState
                                           ),
                                         );
                                       },
+                                      iconType: IconType.continueAnimation,
+                                      width: 24,
+                                      animateIcon: AnimateIcons.eye,
                                     ),
-                                    TaskStatusTag(taskConfig: taskConfig)
-                                  ],
-                                ),
+                                    contentPadding: const EdgeInsets.all(8),
+                                    leading: Hero(
+                                      tag: currentTask.id ?? '' 'drag',
+                                      flightShuttleBuilder: (flightContext,
+                                          animation,
+                                          direction,
+                                          fromContext,
+                                          toContext) {
+                                        return Image.asset(
+                                          imageUrl,
+                                          height: 20,
+                                          width: 20,
+                                        );
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.blueAccent,
+                                        child: Text(
+                                          currentTask.employeeName
+                                              .getInitials(),
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      currentTask.employeeName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (currentTask
+                                            .description.isNotEmpty) ...[
+                                          const SizedBox(height: 4),
+                                          LinkifyWidget(
+                                            description:
+                                                currentTask.description,
+                                          ),
+                                        ],
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          'Due Date : ${currentTask.taskComplitionDate.toSlashDate()}',
+                                          style: const TextStyle(
+                                              color: Colors.grey),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        if (!currentTask.isTaskCompleted)
+                                          Shimmer.fromColors(
+                                            baseColor: remaningDays <= 0
+                                                ? Colors.red
+                                                : remaningDays == 1
+                                                    ? Colors.blue
+                                                    : Colors.grey.shade600,
+                                            highlightColor: Colors.white,
+                                            child: Text(
+                                              remaningDays <= 0
+                                                  ? 'Overdue'
+                                                  : remaningDays == 1
+                                                      ? 'Due Today'
+                                                      : '${getRemainingDays(currentTask)} days left',
+                                              style: TextStyle(
+                                                color: remaningDays <= 1
+                                                    ? Colors.red
+                                                    : Colors.grey.shade600,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => TaskDetailHeroPage(
+                                            imageUrl: imageUrl,
+                                            task: currentTask,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                  TaskStatusTag(taskConfig: taskConfig)
+                                ],
                               ),
                             ),
                           ),
