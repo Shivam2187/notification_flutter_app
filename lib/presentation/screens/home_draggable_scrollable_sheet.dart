@@ -84,19 +84,7 @@ class _HomeDraggableScrollableSheetState
               padding: const EdgeInsets.all(8),
               controller: widget.scrollController,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300], // Light grey background
-                    shape: BoxShape.circle, // Makes it round
-                  ),
-                  padding: const EdgeInsets.all(4), // Padding inside the circle
-                  child: Lottie.asset(
-                    'assets/animations/down_arrow.json',
-                    height: 32,
-                    width: 32,
-                    repeat: true,
-                  ),
-                ),
+                const ArrowDownWidget(),
                 const SizedBox(
                   height: 16,
                 ),
@@ -109,10 +97,13 @@ class _HomeDraggableScrollableSheetState
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: filteredTasks.length,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.only(bottom: 32),
                     itemBuilder: (ctx, index) {
                       final currentTask = filteredTasks[index];
                       final remaningDays = getRemainingDays(currentTask);
+                      final taskConfig = taskStatusConfigFunction(
+                          remainingDay: remaningDays,
+                          isTaskCompleted: currentTask.isTaskCompleted);
 
                       return AnimationConfiguration.staggeredList(
                         position: index,
@@ -139,88 +130,101 @@ class _HomeDraggableScrollableSheetState
                                     repeat: true,
                                   );
                                 },
-                                child: ListTile(
-                                  trailing: AnimateIcon(
-                                    color: Colors.grey.shade800,
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => TaskDetailHeroPage(
-                                            imageUrl: imageUrl,
-                                            task: currentTask,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    iconType: IconType.continueAnimation,
-                                    width: 24,
-                                    animateIcon: AnimateIcons.eye,
-                                  ),
-                                  contentPadding: const EdgeInsets.all(12),
-                                  leading: CircleAvatar(
-                                    backgroundColor: Colors.blueAccent,
-                                    child: Text(
-                                      currentTask.employeeName.getInitials(),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                  title: Text(
-                                    currentTask.employeeName,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      if (currentTask
-                                          .description.isNotEmpty) ...[
-                                        const SizedBox(height: 4),
-                                        LinkifyWidget(
-                                          description: currentTask.description,
-                                        ),
-                                      ],
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        'Due Date : ${currentTask.taskComplitionDate.toSlashDate()}',
-                                        style:
-                                            const TextStyle(color: Colors.grey),
+                                child: Stack(
+                                  children: [
+                                    ListTile(
+                                      trailing: AnimateIcon(
+                                        color: Colors.grey.shade800,
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) =>
+                                                  TaskDetailHeroPage(
+                                                imageUrl: imageUrl,
+                                                task: currentTask,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        iconType: IconType.continueAnimation,
+                                        width: 24,
+                                        animateIcon: AnimateIcons.eye,
                                       ),
-                                      const SizedBox(height: 4),
-                                      Shimmer.fromColors(
-                                        baseColor: remaningDays <= 0
-                                            ? Colors.red
-                                            : Colors.grey.shade600,
-                                        highlightColor: Colors.white,
+                                      contentPadding: const EdgeInsets.all(8),
+                                      leading: CircleAvatar(
+                                        backgroundColor: Colors.blueAccent,
                                         child: Text(
-                                          remaningDays == 0
-                                              ? 'Due Today'
-                                              : '${getRemainingDays(currentTask)} days left',
-                                          style: TextStyle(
-                                            color: remaningDays <= 0
-                                                ? Colors.red
-                                                : Colors.grey.shade600,
-                                            fontWeight: FontWeight.bold,
+                                          currentTask.employeeName
+                                              .getInitials(),
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        currentTask.employeeName,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (currentTask
+                                              .description.isNotEmpty) ...[
+                                            const SizedBox(height: 4),
+                                            LinkifyWidget(
+                                              description:
+                                                  currentTask.description,
+                                            ),
+                                          ],
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            'Due Date : ${currentTask.taskComplitionDate.toSlashDate()}',
+                                            style: const TextStyle(
+                                                color: Colors.grey),
                                           ),
-                                        ),
+                                          const SizedBox(height: 4),
+                                          if (!currentTask.isTaskCompleted)
+                                            Shimmer.fromColors(
+                                              baseColor: remaningDays <= 0
+                                                  ? Colors.red
+                                                  : remaningDays == 1
+                                                      ? Colors.blue
+                                                      : Colors.grey.shade600,
+                                              highlightColor: Colors.white,
+                                              child: Text(
+                                                remaningDays <= 0
+                                                    ? 'Overdue'
+                                                    : remaningDays == 1
+                                                        ? 'Due Today'
+                                                        : '${getRemainingDays(currentTask)} days left',
+                                                style: TextStyle(
+                                                  color: remaningDays <= 1
+                                                      ? Colors.red
+                                                      : Colors.grey.shade600,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => TaskDetailHeroPage(
-                                          imageUrl: imageUrl,
-                                          task: currentTask,
-                                        ),
-                                      ),
-                                    );
-                                  },
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => TaskDetailHeroPage(
+                                              imageUrl: imageUrl,
+                                              task: currentTask,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    TaskStatusTag(taskConfig: taskConfig)
+                                  ],
                                 ),
                               ),
                             ),
@@ -248,15 +252,104 @@ class _HomeDraggableScrollableSheetState
 
   int getRemainingDays(Task currentTask) {
     final remaingDays = DateTime.parse(currentTask.taskComplitionDate)
-        .difference(DateTime.now())
-        .inDays;
-
-    if (remaingDays < 0) {
-      return 0; // Task is overdue
-    } else if (remaingDays == 0) {
-      return 1; // Task is due today
-    }
+            .difference(DateTime.now())
+            .inDays +
+        1;
 
     return remaingDays;
   }
+
+  TaskStatusConfig taskStatusConfigFunction({
+    required int remainingDay,
+    bool isTaskCompleted = false,
+  }) {
+    if (isTaskCompleted) {
+      return TaskStatusConfig(
+        backGroundColor: Colors.green,
+        text: 'Completed',
+      );
+    }
+    if (remainingDay <= 0) {
+      return TaskStatusConfig(
+        backGroundColor: Colors.red,
+        text: 'Pending',
+      );
+    } else {
+      return TaskStatusConfig(
+        backGroundColor: Colors.grey,
+        text: 'In Progress',
+      );
+    }
+  }
+}
+
+class ArrowDownWidget extends StatelessWidget {
+  const ArrowDownWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[300], // Light grey background
+        shape: BoxShape.circle, // Makes it round
+      ),
+      padding: const EdgeInsets.all(4), // Padding inside the circle
+      child: Lottie.asset(
+        'assets/animations/down_arrow.json',
+        height: 32,
+        width: 32,
+        repeat: true,
+      ),
+    );
+  }
+}
+
+class TaskStatusTag extends StatelessWidget {
+  const TaskStatusTag({
+    super.key,
+    required this.taskConfig,
+  });
+
+  final TaskStatusConfig taskConfig;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 0,
+      top: 0,
+      child: Material(
+        elevation: 4,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          decoration: BoxDecoration(
+            borderRadius:
+                const BorderRadius.only(topRight: Radius.circular(12)),
+            color: taskConfig.backGroundColor,
+          ),
+          child: Text(
+            taskConfig.text,
+            style: TextStyle(
+              color: taskConfig.textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TaskStatusConfig {
+  final Color? textColor;
+  final String text;
+  final Color backGroundColor;
+
+  TaskStatusConfig({
+    this.textColor = Colors.white,
+    required this.text,
+    required this.backGroundColor,
+  });
 }
