@@ -149,7 +149,11 @@ class _TaskDetailHeroPageState extends State<TaskDetailHeroPage> {
     );
   }
 
-  Widget _detailRow(IconData icon, String title, String value) {
+  Widget _detailRow(
+    IconData icon,
+    String title,
+    String value,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

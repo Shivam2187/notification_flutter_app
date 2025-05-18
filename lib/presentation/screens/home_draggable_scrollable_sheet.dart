@@ -6,6 +6,7 @@ import 'package:notification_flutter_app/data/models/task.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
 import 'package:notification_flutter_app/presentation/widgets/admin_acess_dialog.dart';
 import 'package:notification_flutter_app/presentation/widgets/carousel_slider.dart';
+import 'package:notification_flutter_app/presentation/widgets/linkify_widget.dart';
 import 'package:notification_flutter_app/presentation/widgets/task_detail_hero_page.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
@@ -179,11 +180,8 @@ class _HomeDraggableScrollableSheetState
                                       if (currentTask
                                           .description.isNotEmpty) ...[
                                         const SizedBox(height: 4),
-                                        Text(
-                                          currentTask.description,
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                          ),
+                                        LinkifyWidget(
+                                          description: currentTask.description,
                                         ),
                                       ],
                                       const SizedBox(height: 4),
