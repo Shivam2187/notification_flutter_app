@@ -13,6 +13,43 @@ class EmployeProvider extends ChangeNotifier {
   List<Task> _taskList = [];
   List<Task> get taskList => _taskList;
 
+  String _taskSearchQuery = '';
+  String get getTaskSearchQuery => _taskSearchQuery;
+  String _employeeSearchQuery = '';
+  String get getEmployeeSearchQuery => _employeeSearchQuery;
+
+// This is the search query used to filter the task list
+  List<Task> get getFilteredTask => _taskSearchQuery.isEmpty
+      ? _taskList
+      : _taskList.where(
+          (task) {
+            return task.employeeName
+                .toLowerCase()
+                .contains(_taskSearchQuery.toLowerCase());
+          },
+        ).toList();
+
+  void setTaskSearchQuery(String query) {
+    _taskSearchQuery = query.trim();
+    notifyListeners();
+  }
+
+// This is the search query used to filter the employee list
+  List<Employee> get getFilteredEmployee => _employees.isEmpty
+      ? _employees
+      : _employees.where(
+          (e) {
+            return e.employeeName
+                .toLowerCase()
+                .contains(_employeeSearchQuery.toLowerCase());
+          },
+        ).toList();
+
+  void setEmployeeSearchQuery(String query) {
+    _employeeSearchQuery = query.trim();
+    notifyListeners();
+  }
+
 // Create data (POST request)
   Future<bool> addEmployee({
     required String employeeName,
