@@ -1,8 +1,8 @@
 import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/core/locator.dart';
-import 'package:notification_flutter_app/presentation/screens/login/login_page.dart';
 
 class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -62,10 +62,8 @@ class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   key: UniqueKey(),
                   onTap: () {
                     locator.get<HiveService>().clearAllMobileUsersData();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                    context.pushReplacement(
+                      '/loginPage',
                     );
                   },
                   iconType: IconType.continueAnimation,

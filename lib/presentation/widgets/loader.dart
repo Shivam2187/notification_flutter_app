@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class LoaderDialog {
@@ -34,6 +35,6 @@ class LoaderDialog {
   static void hide({
     required BuildContext context,
   }) {
-    Navigator.of(context, rootNavigator: true).pop();
+    context.pop();
   }
 }

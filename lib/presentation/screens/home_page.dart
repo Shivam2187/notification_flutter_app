@@ -1,12 +1,12 @@
 // ignore: unused_import
 import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
 import 'package:notification_flutter_app/presentation/screens/home_draggable_scrollable_sheet.dart';
-import 'package:notification_flutter_app/presentation/screens/login/login_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,11 +56,8 @@ class _HomePageState extends State<HomePage> {
                                   locator
                                       .get<HiveService>()
                                       .clearAllMobileUsersData();
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginPage()),
+                                  context.pushReplacement(
+                                    '/loginPage',
                                   );
                                 },
                                 child: Container(

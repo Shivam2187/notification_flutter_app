@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notification_flutter_app/data/models/task.dart';
 import 'package:notification_flutter_app/presentation/widgets/loader.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
@@ -39,7 +40,7 @@ class _TaskDetailHeroPageState extends State<TaskDetailHeroPage> {
             pinned: true,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => context.pop(),
             ),
             flexibleSpace: FlexibleSpaceBar(
               background: ClipRRect(

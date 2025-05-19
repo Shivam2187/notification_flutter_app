@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notification_flutter_app/core/hive_service.dart';
 import 'package:notification_flutter_app/data/models/user_login_info.dart';
-import 'package:notification_flutter_app/presentation/screens/home_page.dart';
-import 'package:notification_flutter_app/presentation/screens/login/login_page.dart';
+import 'package:notification_flutter_app/utils/router_config.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
@@ -39,11 +38,9 @@ class _HomePage extends StatelessWidget {
           create: (context) => EmployeProvider(),
         ),
       ],
-      child: MaterialApp(
-        home: locator.get<GlobalStroe>().userMobileNumber?.isEmpty ?? true
-            ? const LoginPage()
-            : const HomePage(),
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
+        routerConfig: routerConfig,
       ),
     );
   }

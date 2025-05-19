@@ -1,13 +1,14 @@
 import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/data/models/task.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
+import 'package:notification_flutter_app/presentation/screens/admin_task_dashboard.dart';
 import 'package:notification_flutter_app/presentation/widgets/admin_acess_dialog.dart';
 import 'package:notification_flutter_app/presentation/widgets/carousel_slider.dart';
 import 'package:notification_flutter_app/presentation/widgets/linkify_widget.dart';
-import 'package:notification_flutter_app/presentation/widgets/task_detail_hero_page.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
@@ -127,13 +128,11 @@ class _HomeDraggableScrollableSheetState
                                     trailing: AnimateIcon(
                                       color: Colors.grey.shade800,
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => TaskDetailHeroPage(
-                                              imageUrl: imageUrl,
-                                              task: currentTask,
-                                            ),
+                                        context.push(
+                                          '/taskDetailHeroPage',
+                                          extra: TaskDetailsWithImageUrl(
+                                            task: currentTask,
+                                            imageUrl: imageUrl,
                                           ),
                                         );
                                       },
@@ -216,13 +215,11 @@ class _HomeDraggableScrollableSheetState
                                       ],
                                     ),
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => TaskDetailHeroPage(
-                                            imageUrl: imageUrl,
-                                            task: currentTask,
-                                          ),
+                                      context.push(
+                                        '/taskDetailHeroPage',
+                                        extra: TaskDetailsWithImageUrl(
+                                          task: currentTask,
+                                          imageUrl: imageUrl,
                                         ),
                                       );
                                     },

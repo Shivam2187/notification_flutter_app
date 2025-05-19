@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/data/models/task.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
@@ -6,7 +7,6 @@ import 'package:notification_flutter_app/presentation/widgets/appbar.dart';
 import 'package:notification_flutter_app/presentation/widgets/linkify_widget.dart';
 import 'package:notification_flutter_app/presentation/widgets/loader.dart';
 import 'package:notification_flutter_app/presentation/widgets/custom_search.dart';
-import 'package:notification_flutter_app/presentation/widgets/task_detail_hero_page.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 import 'package:notification_flutter_app/utils/extention.dart';
 import 'package:provider/provider.dart';
@@ -123,18 +123,16 @@ class AdminTaskDashboard extends StatelessWidget {
                             },
                           ),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => TaskDetailHeroPage(
-                                  imageUrl: imageUrl,
-                                  task: currentTask,
-                                  isCompleyedButtonVisible: true,
-                                  onPressed: () async {
-                                    return await data.updateTaskStatus(
-                                        taskId: currentTask.id ?? '');
-                                  },
-                                ),
+                            context.push(
+                              '/taskDetailHeroPage',
+                              extra: TaskDetailsWithImageUrl(
+                                task: currentTask,
+                                imageUrl: imageUrl,
+                                isCompletedButtonVisible: true,
+                                onPressed: () async {
+                                  return await data.updateTaskStatus(
+                                      taskId: currentTask.id ?? '');
+                                },
                               ),
                             );
                           },
@@ -182,4 +180,18 @@ class AdminTaskDashboard extends StatelessWidget {
 
     return remaingDays;
   }
+}
+
+class TaskDetailsWithImageUrl {
+  final Task task;
+  final String imageUrl;
+  final bool isCompletedButtonVisible;
+  final Future<bool> Function()? onPressed;
+
+  TaskDetailsWithImageUrl({
+    this.isCompletedButtonVisible = false,
+    this.onPressed,
+    required this.task,
+    required this.imageUrl,
+  });
 }

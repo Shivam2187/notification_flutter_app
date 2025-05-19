@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:notification_flutter_app/presentation/widgets/loader.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
@@ -41,7 +42,7 @@ class EmployeeAddFormState extends State<EmployeeAddForm> {
 
       LoaderDialog.hide(context: context);
 
-      if (status) Navigator.pop(context);
+      if (status) context.pop();
 
       showTopSnackBar(
         context: context,

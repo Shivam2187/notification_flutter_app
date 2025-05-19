@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:notification_flutter_app/data/models/employee.dart';
 
 void employeeDetailsDialog(Employee employeeDetails, BuildContext context) {
@@ -36,7 +37,7 @@ void employeeDetailsDialog(Employee employeeDetails, BuildContext context) {
       ),
       actions: [
         TextButton.icon(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
           icon: const Icon(Icons.close, color: Colors.white),
           label: const Text('Close', style: TextStyle(color: Colors.white)),
           style: TextButton.styleFrom(

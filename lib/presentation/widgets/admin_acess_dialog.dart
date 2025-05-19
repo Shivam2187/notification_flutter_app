@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:notification_flutter_app/core/locator.dart';
 import 'package:notification_flutter_app/presentation/providers/employee_provider.dart';
 import 'package:notification_flutter_app/presentation/providers/global_store.dart';
-import 'package:notification_flutter_app/presentation/screens/admin_page.dart';
 import 'package:notification_flutter_app/presentation/widgets/loader.dart';
 import 'package:notification_flutter_app/presentation/widgets/top_snake_bar.dart';
 import 'package:provider/provider.dart';
@@ -22,13 +22,13 @@ void showAdminAcessDialog(BuildContext context) async {
           .fetchEmployee();
       LoaderDialog.hide(context: context);
 
-      Navigator.pop(context); // close the dialog
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const AdminPage()),
+      context.pop(); // close the dialog
+
+      context.push(
+        '/adminPage',
       );
     } else {
-      Navigator.pop(context);
+      context.pop();
 
       showTopSnackBar(context: context, message: 'Unauthorized Access!');
     }
